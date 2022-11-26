@@ -1,5 +1,5 @@
 ## 0x00. AirBnB clone - The console
-![hbnb_logo](https://github.com/EndrisMoh/AirBnB_clone/tree/master/image/hbnb_logo.png)
+
 #### Purpose
 The purpose of this group project is to recreate the AirBnB site, from the back-end data management to the front-end user interface.
 
