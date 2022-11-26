@@ -16,6 +16,7 @@ The console currently supports the following commands:
 .all <class name>, where the class name input is optional and the console will display all instances, or all instances of a specified object;
 .update <class name> <id> <attribute name> <attribute value>, whilch will update an instance attribute of a previously declared object.
 
+
 Additionally, the console also supports the following command formats:
 
 .<class name>.all(), which will display all instances of the specified class;
