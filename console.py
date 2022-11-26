@@ -38,8 +38,8 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, class_name):
         """ Counts the number of instances in a class"""
         count = 0
-        all_objects = storage.all()
-        for key, value in all_objects.items():
+        all_objs = storage.all()
+        for key, value in all_objs.items():
             clss = key.split('.')
             if clss[0] == class_name:
                 count = count + 1
