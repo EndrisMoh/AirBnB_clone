@@ -11,7 +11,7 @@ Classes that are currently supported include BaseModel, User, City, State, Ameni
 
 The console currently supports the following commands:
 
- **create** \<class name>\, which will create an object of the class declared by user;
++ **create** \**<class name>**\, which will create an object of the class declared by user;
 + **show** **\<class name>\ \<id>\**, which will display the object information if it exists;
 + **destroy** **\<class name>\ \<id>\**, which will delete the object if it exists;
 + **all** **\<class name>\**, where the class name input is optional and the console will display all instances, or all instances of a specified object;
