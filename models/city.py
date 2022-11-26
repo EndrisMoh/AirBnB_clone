@@ -19,6 +19,6 @@ class City(BaseModel):
         """init method for city class
         Attributes:
             args (list): The list with arguments
-            kwaards (dict): A dictionary with arguments
+            kwargs (dict): A dictionary with arguments
         """
         super().__init__(*args, **kwargs)
