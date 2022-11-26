@@ -3,14 +3,21 @@
 
 import cmd
 import shlex
-from models import *
+import models
+from models.base_model import BaseModel
+from models.city import City
+from models.user import User
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
 
 
 class HBNBCommand(cmd.Cmd):
     """ Command interpreter class"""
 
     prompt = "(hbnb) "
-    storage.reload()
+    #storage.reload()
 
     cls_list = ['BaseModel', 'User', 'Amenity', 'Place', 'City', 'State',
                 'Review']
@@ -21,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
         """ Parses input command"""
         if '.' in arg and '(' in arg and ')' in arg:
             clas = arg.split('.')
-            cmnd = clas[1].split('(')
+            cmnd_list = clas[1].split('(')
             args = cmnd[1].split(')')
             if clas[0] in HBNBCommand.cls_list and cmnd[0] in cmnd_list:
                 arg = cmnd[0] + ' ' + clas[0] + ' ' + args[0]
@@ -38,7 +45,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, class_name):
         """ Counts the number of instances in a class"""
         count = 0
-        all_objects = storage.all()
+        all_objects = models.storage.all()
         for key, value in all_objects.items():
             clss = key.split('.')
             if clss[0] == class_name:
@@ -129,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in HBNBCommand.cls_list:
             print("** class doesn't exist **")
         else:
-            all_objs = storage.all()
+            all_objs = models.storage.all()
             instances_list = []
             for key, value in all_objs.items():
                 obj_name = value.__class__.__name__

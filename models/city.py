@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-from models.city import City
 """
 Class defines city that inherits from BaseModel
 """
