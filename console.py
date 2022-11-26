@@ -2,14 +2,15 @@
 """ A program that contains the entry point of the command interpreter """
 
 import cmd
-from models import storage
 import shlex
+from models import *
 
 
 class HBNBCommand(cmd.Cmd):
     """ Command interpreter class"""
 
     prompt = "(hbnb) "
+    storage.reload()
 
     cls_list = ['BaseModel', 'User', 'Amenity', 'Place', 'City', 'State',
                 'Review']
@@ -44,23 +45,23 @@ class HBNBCommand(cmd.Cmd):
                 count = count + 1
         print(count)
 
-    def do_create(self, type_model):
+    def do_create(self, args):
         """ Creates a new instance of a BaseModel parent class,\
             saves it (to the JSON file) and prints the id.\
             Ex: $ create BaseModel
         """
-
-        if not type_model:
-            print("** class name missing **")
-        elif type_model not in HBNBCommand.cls_list:
+        
+        if not args:
+            print("** class name missing **")       
+        elif args not in HBNBCommand.cls_list:
             print("** class doesn't exist **")
         else:
             dct = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
                    'City': City, 'Amenity': Amenity, 'State': State,
                    'Review': Review}
-            my_model = dct[type_model]()
+            my_model = dct[args]()
             print(my_model.id)
-            my_model.save()
+            my_model.save()            
 
     def do_show(self, arg):
         """ Prints the string representation of an instance based on the
@@ -78,8 +79,8 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 1:
             print("** instancs id missing **")
         else:
-            all_objects = storage.all()
-            for key, value in all_objects.items():
+            all_objs = storage.all()
+            for key, value in all_objs.items():
                 obj_name = value.__class__.__name__
                 obj_id = value.id
                 if obj_name == args[0] and obj_id == args[1].strip('"'):
@@ -90,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, arg):
         """ Deletes an instance based on the class name and id\
             (save the change into the JSON file)\
-            Ex: $ destroy BaseModel 1234-1234-1234
+            Usage: Example: $ destroy BaseModel 1234-1234-1234
         """
 
         if not arg:
@@ -101,9 +102,10 @@ class HBNBCommand(cmd.Cmd):
 
         if args[0] not in HBNBCommand.cls_list:
             print("** class doesn't exist **")
+            return
         else:
-            all_objects = storage.all()
-            for key, value in all_objects.items():
+            all_objs = storage.all()
+            for key, value in all_objs.items():
                 obj_name = value.__class__.__name__
                 obj_id = value.id
                 if obj_name == args[0] and obj_id == args[1].strip('"'):
@@ -127,9 +129,9 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in HBNBCommand.cls_list:
             print("** class doesn't exist **")
         else:
-            all_objects = storage.all()
+            all_objs = storage.all()
             instances_list = []
-            for key, value in all_objects.items():
+            for key, value in all_objs.items():
                 obj_name = value.__class__.__name__
                 if obj_name == args[0]:
                     instances_list += [value.__str__()]
@@ -159,8 +161,10 @@ class HBNBCommand(cmd.Cmd):
 
         if args[0] not in HBNBCommand.cls_list:
             print("** class doesn't exist **")
+            return
         elif len(args) == 1:
             print("** instance id missing **")
+            return
         else:
             all_objects = storage.all()
             for key, objc in all_objects.items():
@@ -182,7 +186,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, line):
-        """ EOF command to exit the command interpreter """
+        """ Ctrl + D command to exit the command interpreter """
         return True
 
 

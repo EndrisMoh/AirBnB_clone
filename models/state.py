@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Class that defines a state
+Class defines a state that inherits from BaseModel
 """
 from models.base_model import BaseModel
 

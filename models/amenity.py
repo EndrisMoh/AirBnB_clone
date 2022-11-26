@@ -1,6 +1,6 @@
 #!/usr/binpython3
 """
-Defines  Amenities
+Class defines Amenities that inherits from BaseModel
 """
 from models.base_model import BaseModel
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Defines review class
+Class for user's review that inherits from BaseModel
 """
 from models.base_model import BaseModel
 
