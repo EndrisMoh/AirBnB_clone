@@ -21,6 +21,7 @@ classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
 class HBNBCommand(cmd.Cmd):
     """ HBNH command interpreter console """
     prompt = '(hbnb) '
+    storage.reload()
 
     def do_EOF(self, arg):
         """Exits console"""
@@ -160,6 +161,70 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
         else:
             print("** class doesn't exist **")
+
+    def do_User(self, args):
+        """Usages: User.action() to the user """
+        self.class_exec('User', args)
+
+    def do_BaseModel(self, args):
+        """Usages: BaseModel.action() to the class BaseModel """
+        self.class_exec('BaseModel', args)
+
+    def do_State(self, args):
+        """Usages: State.action() to the class State """
+        self.class_exec('State', args)
+
+    def do_City(self, args):
+        """Usages: City.action() to the class City  """
+        self.class_exec('City', args)
+
+    def do_Amenity(self, args):
+        """Usages: Amenity.action() to the class Amenity """
+        self.class_exec('Amenity', args)
+
+    def do_Place(self, args):
+        """Usages: Place.action() to the class Place """
+        self.class_exec('Place', args)
+
+    def do_Review(self, args):
+        """Usages: Review.action() to the class Review """
+        self.class_exec('Review', args)
+
+    def class_exec(self, cls_name, args):
+        """Wrapper function for <class name>.action()"""
+        if args[:6] == '.all()':
+            self.do_all(cls_name)
+        elif args[:6] == '.show(':
+            self.do_show(cls_name + ' ' + args[7:-2])
+        elif args[:8] == ".count()":
+            all_objs = {k: v for (k, v) in storage.all().items()
+                        if isinstance(v, eval(cls_name))}
+            print(len(all_objs))
+        elif args[:9] == '.destroy(':
+            self.do_destroy(cls_name + ' ' + args[10:-2])
+        elif args[:8] == '.update(':
+            if '{' in args and '}' in args:
+                new_arg = args[8:-1].split('{')
+                new_arg[1] = '{' + new_arg[1]
+            else:
+                new_arg = args[8:-1].split(',')
+            if len(new_arg) == 3:
+                new_arg = " ".join(new_arg)
+                new_arg = new_arg.replace("\"", "")
+                new_arg = new_arg.replace("  ", " ")
+                self.do_update(cls_name + ' ' + new_arg)
+            elif len(new_arg) == 2:
+                try:
+                    dict = eval(new_arg[1])
+                except TypeError:
+                    return
+                for j in dict.keys():
+                    self.do_update(cls_name + ' ' + new_arg[0][1:-3] + ' ' +
+                                   str(j) + ' ' + str(dict[j]))
+            else:
+                return
+        else:
+            print("Not a valid command")
 
 
 if __name__ == '__main__':
