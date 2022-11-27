@@ -21,7 +21,6 @@ classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
 class HBNBCommand(cmd.Cmd):
     """ HBNH command interpreter console """
     prompt = '(hbnb) '
-    storage.reload()
 
     def do_EOF(self, arg):
         """Exits console"""
