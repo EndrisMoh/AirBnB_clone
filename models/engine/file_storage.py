@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Class that serializes instances/onjects to a JSON file
+Class that serializes instances/objects to a JSON file
 and deserializes JSON to instances
 """
 import json
@@ -17,7 +17,7 @@ class FileStorage:
         return FileStorage.__objects
 
     def new(self, obj):
-        """ Sets in __objects the onj with key <onj class name>.id """
+        """ Sets in __objects the obj with key <obj class name>.id """
         key = obj.__class__.__name__ + "." + obj.id
         FileStorage.__objects[key] = obj
 
