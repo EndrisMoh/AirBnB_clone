@@ -32,7 +32,7 @@ class FileStorage:
             json.dump(dictionary, f)
 
     def reload(self):
-        """ Deserializes __objects from the JSON file """
+        """ Deserializes __objects from the JSON file if it exists """
         from models.base_model import BaseModel
         from models.user import User
         from models.place import Place
