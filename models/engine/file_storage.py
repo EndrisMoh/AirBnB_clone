@@ -40,7 +40,6 @@ class FileStorage:
 
     def reload(self):
         """ Deserializes __objects from the JSON file if it exists """
-
         dct = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
                'City': City, 'Amenity': Amenity, 'State': State,
                'Review': Review}
