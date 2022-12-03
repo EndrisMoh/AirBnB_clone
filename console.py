@@ -108,18 +108,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Prints string representations of instances"""
-        #args = shlex.split(arg)
-        #obj_list = []
         if arg != "":
             args = arg.split(' ')
             if args[0] not in classes:
                 print("** class doesn't exist **")
             else:
-                obj_list = [str(obj) for key, obj in models.storage.all().items()
-                    if type(obj).__name__ == args[0]]
+                obj_list = [str(obj) for k, obj in models.storage.all().items()
+                            if type(obj).__name__ == args[0]]
                 print(obj_list)
         else:
-            obj_list = [str(obj) for key, obj in models.storage.all().items()]
+            obj_list = [str(obj) for k, obj in models.storage.all().items()]
             print(obj_list)
 
     def do_count(self, arg):
@@ -129,11 +127,10 @@ class HBNBCommand(cmd.Cmd):
         if not args[0]:
             print("** class name missing **")
         elif args[0] not in classes:
-             print("** class doesn't exist **")
+            print("** class doesn't exist **")
         else:
             counts = [
-                k for k in models.storage.all() if k.startswith(
-                    args[0] + '.')]
+                k for k in models.storage.all() if k.startswith(args[0] + '.')]
             print(len(counts))
 
     def do_update(self, arg):
