@@ -1,10 +1,17 @@
 #!/usr/bin/python3
 """
-Class that serializes instances/onjects to a JSON file
+Class that serializes instances/objects to a JSON file
 and deserializes JSON to instances
 """
 import json
 import os
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+from models.state import State
+from models.review import Review
 
 
 class FileStorage:
@@ -17,7 +24,7 @@ class FileStorage:
         return FileStorage.__objects
 
     def new(self, obj):
-        """ Sets in __objects the onj with key <onj class name>.id """
+        """ Sets in __objects the obj with key <obj class name>.id """
         key = obj.__class__.__name__ + "." + obj.id
         FileStorage.__objects[key] = obj
 
@@ -32,14 +39,7 @@ class FileStorage:
             json.dump(dictionary, f)
 
     def reload(self):
-        """ Deserializes __objects from the JSON file """
-        from models.base_model import BaseModel
-        from models.user import User
-        from models.place import Place
-        from models.city import City
-        from models.amenity import Amenity
-        from models.state import State
-        from models.review import Review
+        """ Deserializes __objects from the JSON file if it exists """
         dct = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
                'City': City, 'Amenity': Amenity, 'State': State,
                'Review': Review}

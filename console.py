@@ -15,14 +15,15 @@ from models.review import Review
 from models.state import State
 =======
 from datetime import datetime
-import models
-from models.amenity import Amenity
+import models 
+from models import storage
 from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
 from models.user import User
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+from models.state import State
+from models.review import Review
 import shlex  # for splitting the line along spaces except in double quotes
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
@@ -166,13 +167,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Prints string representations of instances"""
-        args = shlex.split(arg)
-        obj_list = []
-        if len(args) == 0:
-            print("** class name missing **")
-        elif args[0] in classes:
-            obj_dict = models.storage.all(classes[args[0]])
+        if arg != "":
+            args = arg.split(' ')
+            if args[0] not in classes:
+                print("** class doesn't exist **")
+            else:
+                obj_list = [str(obj) for k, obj in models.storage.all().items()
+                            if type(obj).__name__ == args[0]]
+                print(obj_list)
         else:
+<<<<<<< HEAD
 <<<<<<< HEAD
             all_objs = models.storage.all()
             instances_list = []
@@ -190,6 +194,23 @@ class HBNBCommand(cmd.Cmd):
         print(", ".join(obj_list), end="")
         print("]")
 >>>>>>> aa5b201271d827d4bb071ebc69921fbb7820e01c
+=======
+            obj_list = [str(obj) for k, obj in models.storage.all().items()]
+            print(obj_list)
+
+    def do_count(self, arg):
+        """ Counts the instances of a class
+        """
+        args = arg.split(' ')
+        if not args[0]:
+            print("** class name missing **")
+        elif args[0] not in classes:
+            print("** class doesn't exist **")
+        else:
+            counts = [
+                k for k in models.storage.all() if k.startswith(args[0] + '.')]
+            print(len(counts))
+>>>>>>> 5730339b4447819997de39fabdd9f2048758124b
 
     def do_update(self, arg):
         """Update an instance based on the class name, id, attribute & value"""
@@ -264,7 +285,7 @@ class HBNBCommand(cmd.Cmd):
         elif args[:6] == '.show(':
             self.do_show(cls_name + ' ' + args[7:-2])
         elif args[:8] == ".count()":
-            all_objs = {k: v for (k, v) in storage.all().items()
+            all_objs = {k: v for (k, v) in models.storage.all().items()
                         if isinstance(v, eval(cls_name))}
             print(len(all_objs))
         elif args[:9] == '.destroy(':

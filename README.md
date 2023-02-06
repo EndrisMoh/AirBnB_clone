@@ -1,7 +1,7 @@
 ## 0x00. AirBnB clone - The console
 
 #### Purpose
-The purpose of this group project is to recreate the AirBnB site, from the back-end data management to the front-end user interface.
+The purpose of this group project is to recreate the AirBnB website, from the back-end data management to the front-end user interface.
 
 The project is currently in its first phase, where we are creating a command line interpretor to access objects that will store user data. Users can use the console to create objects, update object attributes, remove objects, list all objects, and store and read data from a .json file.
 
@@ -15,7 +15,7 @@ The console currently supports the following commands:
 + **show** \<class name> \<id>\, which will display the object information if it exists;
 + **destroy** \<class name> \<id>\, which will delete the object if it exists;
 + **all** \<class name>\, where the class name input is optional and the console will display all instances, or all instances of a specified object;
-+ **update** \<class name> \<id> \<attribute name> \<attribute value>, whilch will update an instance attribute of a previously declared object.
++ **update** \<class name> \<id> \<attribute name> \<attribute value>, which will update an instance attribute of a previously declared object.
 
 
 Additionally, the console also supports the following command formats:
